@@ -1,5 +1,5 @@
 from UAVAUTO_VERSION_4.config import app, db
-from UAVAUTO_VERSION_4.Routes import user_routes,drone_routes,mission_planner_routes,mission_task_routes,location_pin_routes,mission_data_location_routes,mission_data_image_routes,sortie_routes,drone_availability_log_routes,drone_station_mapping_routes,station_routes,mission_station_mapping_routes,routes_controller_routes
+from UAVAUTO_VERSION_4.Routes import active_mission_routes,user_routes,drone_routes,mission_planner_routes,mission_task_routes,location_pin_routes,mission_data_location_routes,mission_data_image_routes,sortie_routes,drone_availability_log_routes,drone_station_mapping_routes,station_routes,mission_station_mapping_routes,routes_controller_routes
 import os
 
 UPLOAD_FOLDER = './uploads'
@@ -25,5 +25,6 @@ app.register_blueprint(drone_station_mapping_routes)
 app.register_blueprint(station_routes)
 app.register_blueprint(mission_station_mapping_routes)
 app.register_blueprint(routes_controller_routes)
+app.register_blueprint(active_mission_routes)
 if __name__ == "__main__":
     app.run(debug=True)
