@@ -9,8 +9,9 @@ def receivedVideos():
     videoFiles = request.files
     missionPlannerId = request.form.get('id')
     index = request.form.get('index')
-    lat = request.form.get('lat')
-    long = request.form.get('long')
+    speedOfDrone = int(request.form.get('speed'))
+    lat = float(request.form.get('lat'))
+    long = float(request.form.get('long'))
     VideoProcessingAndPredictionController.videoProcessingAndSaving(videoFiles=videoFiles, id=missionPlannerId, index=index)
-    VideoProcessingAndPredictionController.prediction(missionPlannerId, index)
+    VideoProcessingAndPredictionController.prediction(id=missionPlannerId, index=index, speedofdrone=speedOfDrone, startLat=lat, startLong=long)
     return 'ok',200

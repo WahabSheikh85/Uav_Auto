@@ -27,4 +27,4 @@ app.register_blueprint(mission_station_mapping_routes)
 app.register_blueprint(routes_controller_routes)
 app.register_blueprint(active_mission_routes)
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
