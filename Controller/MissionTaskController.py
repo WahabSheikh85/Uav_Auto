@@ -6,7 +6,7 @@ class MissionTaskController():
     @staticmethod
     def insert_mission_task(data):
         mission_planner = MissionPlanner.query.filter_by(id=data['mission_planner_id']).first()
-        mission_task = MissionTask(mission_planner_id=data['mission_planner_id'],description=data['description'])
+        mission_task = MissionTask(mission_planner_id=data['mission_planner_id'],route_id=data['route_id'],description=data['description'])
         db.session.add(mission_task)
         db.session.commit()
         mission_planner.status = 'active'

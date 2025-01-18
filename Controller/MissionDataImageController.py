@@ -10,7 +10,11 @@ class MissionDataImageController():
         mission_data_image = MissionDataImage(mission_data_location_id=data['mission_data_location_id'],image_path = data['image_path'])
         db.session.add(mission_data_image)
         db.session.commit()
-        return mission_data_image
+        return {
+            'id': mission_data_image.id,
+            'mission_data_location_id': mission_data_image.mission_data_location_id,
+            'image_path': mission_data_image.image_path
+        }
     @staticmethod
     def upload_image(data):
         processesed_image_path,isDamaged = process_single_image(data)

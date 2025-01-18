@@ -1,9 +1,11 @@
 import math
 import os
+from UAVAUTO_VERSION_4.Model.MissionTask import MissionTask
 from fileinput import filename
 from ultralytics import YOLO
 import cv2
-
+from  UAVAUTO_VERSION_4.Controller.MissionDataLocationController import MissionDataLocationController
+from UAVAUTO_VERSION_4.Controller.MissionDataImageController import MissionDataImageController
 
 
 class VideoProcessingAndPredictionController():
@@ -133,6 +135,21 @@ class VideoProcessingAndPredictionController():
                                 saveImageAs = f"E:/user/abdul wahab/PythonProjects/UAVAUTO_VERSION_4/ModelResults/mission_{id}/video_{index}/DamageImages/{lat_new}_{long_new}_{class_name}_{confidence:.2f}.jpg"
                                 # saveLatLongAs = f"E:/user/abdul wahab/PythonProjects/UAVAUTO_VERSION_4/ModelResults/mission_{id}/video_{index}/LatLongs/{class_name}_{confidence:.2f}.jpg"
                                 cv2.imwrite(saveImageAs, frame)
+                                mission_task = MissionTask.query.filter_by(mission_planner_id=id).first()
+
+                                dataToInsertLatLong = {
+                                    'mission_task_id': mission_task.id,
+                                    'latitude': lat_new,
+                                    'longitude': long_new,
+                                    'damage': 'damaged_pole'
+                                }
+                                response = MissionDataLocationController.insert_mission_data_location(dataToInsertLatLong)
+                                print(response)
+                                dataToInsertDamageImage = {
+                                    'mission_data_location_id':response['id'],
+                                    'image_path':saveImageAs
+                                }
+                                MissionDataImageController.insert_mission_data_image(dataToInsertDamageImage)
                                 # print(f"Saved frame with damaged_pole at {output_path}")
 
                             # processedImage = result.plot()

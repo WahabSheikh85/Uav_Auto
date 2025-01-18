@@ -10,6 +10,7 @@ def insert_mission_task():
     mission_task_dict = {
         "id":mission_task.id,
         "mission_planner_id":mission_task.mission_planner_id,
+        "route_id":mission_task.route_id,
         "description":mission_task.description
     }
     return {'success':True,'data':mission_task_dict},200
