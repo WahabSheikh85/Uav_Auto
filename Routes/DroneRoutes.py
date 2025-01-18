@@ -5,11 +5,20 @@ drone_routes = Blueprint('drone_routes',__name__)
 
 @drone_routes.route('/insert_drone',methods=['POST'])
 def insert_drone():
-    data = request.get_json()
-    drone,drone_station_mapping = DroneController.insert_drone(data)
+    # data = request.get_json()
+    data = {
+        "name": request.form.get('name'),
+        "speed": float(request.form.get('speed')),
+        "flight_duration": float(request.form.get('flight_duration')),
+        "ceiling": float(request.form.get('ceiling')),
+        "fps": int(request.form.get('fps')),
+        "station_id": int(request.form.get('station_id'))
+    }
+    image = request.files['image']
+    drone,drone_station_mapping = DroneController.insert_drone(data, image)
     drone_dict = {
         "ceiling": drone.ceiling,
-        "drone_image": drone.drone_image,
+        "drone_image": drone.image_path,
         "flight_duration": drone.flight_duration,
         "fps": drone.fps,
         "id": drone.id,

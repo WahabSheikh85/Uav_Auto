@@ -11,6 +11,7 @@ class Drone(db.Model):
     fps = db.Column(db.Integer, nullable=False)  # Frames per second for cameras
     image_path = db.Column(db.String(300), nullable=True)  # Nullable to allow flexibility
     validity = db.Column(db.Integer, nullable=False, default=1)  # Active status: 1 for valid, 0 for invalid
+    # storage_capacity check
 
     # Relationships
     drone_availability_logs = db.relationship('DroneAvailabilityLog', back_populates='drone')  # Matches DroneAvailabilityLog model

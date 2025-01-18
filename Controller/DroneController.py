@@ -3,10 +3,16 @@ from UAVAUTO_VERSION_4.Model.Drone import Drone
 from UAVAUTO_VERSION_4.Controller.DroneStationMappingController import DroneStationMappingController
 from UAVAUTO_VERSION_4.Controller.StationController import StationController
 import os
+import numpy as np
 class DroneController():
     @staticmethod
-    def insert_drone(data):
-        drone = Drone(name=data['name'],speed=data['speed'],flight_duration=data['flight_duration'],ceiling=data['ceiling'],fps=data['fps'],image_path=data['image_path'])
+    def insert_drone(data, image):
+        path = r'E:\user\abdul wahab\PythonProjects\UAVAUTO_VERSION_4\uploads\DroneImageData'
+
+        name = str(np.random.randint(0, 100000000)) + '_' + image.filename
+        path = os.path.join(path, name)
+        drone = Drone(name=data['name'],speed=data['speed'],flight_duration=data['flight_duration'],ceiling=data['ceiling'],fps=data['fps'],image_path=path)
+        image.save(path)
         db.session.add(drone)
         db.session.commit()
         newData = {
